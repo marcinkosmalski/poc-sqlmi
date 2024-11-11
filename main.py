@@ -1,6 +1,7 @@
 import pyodbc
 from fastapi import FastAPI
 import time
+import os
 
 app = FastAPI()
 
@@ -24,7 +25,8 @@ def get_db_connection():
 
 @app.get("/ping/")
 async def ping():
-    return {"status": f"All good! {time.time()})"}
+    env=dict(os.environ)
+    return {"status": f"All good! {time.time()}) env: {env['DB_USERNAME']}"}
 
 # API endpoint to fetch data from the Azure SQL database
 @app.get("/verify/")
