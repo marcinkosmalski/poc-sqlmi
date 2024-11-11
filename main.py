@@ -21,6 +21,17 @@ def get_db_connection():
     except Exception as e:
         print(f"Error: {e}")
         return None
+    
+def get_error_db_connection():
+    env=dict(os.environ)
+    try:
+        connection = pyodbc.connect(
+         #   f"DRIVER={driver};SERVER={server};PORT=1433;DATABASE={database};UID={username};PWD={password}"
+         f"Driver={driver};Server=tcp:sqlmi-01-devl.2ae0e23695de.database.windows.net,1433;Uid=dbadmin@sqlmi-01-devl;Pwd={env['DB_PASSWORD']};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+        )
+        return connection
+    except Exception as e:
+        return f"Error: {e}"
 
 @app.get("/ping/")
 async def ping():
@@ -31,7 +42,7 @@ async def ping():
 async def read_items():
     conn = get_db_connection()
     if not conn:
-        return {"error": "Database connection failed"}
+        return {"error": get_error_db_connection()}
 
     cursor = conn.cursor()
     try:
