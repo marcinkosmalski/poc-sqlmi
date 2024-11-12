@@ -15,7 +15,7 @@ def get_db_connection():
         connection = pyodbc.connect(
          #   f"DRIVER={driver};SERVER={server};PORT=1433;DATABASE={database};UID={username};PWD={password}"
        #  f"Driver={driver};Server=tcp:sqlmi-01-devl.2ae0e23695de.database.windows.net,1433;Uid=dbadmin@sqlmi-01-devl;Pwd={env['DB_PASSWORD']};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
-           f"DRIVER={driver};SERVER=sqlmi-01-devl.2ae0e23695de.database.windows.net;PORT=1433;DATABASE=test-db;UID=dbadmin;PWD={env['DB_PASSWORD']}"
+           f"DRIVER={driver};SERVER=sqlmi-01-devl.2ae0e23695de.database.windows.net;DATABASE=test-db;UID=dbadmin;PWD={env['DB_PASSWORD']}"
         )
         
         return connection
